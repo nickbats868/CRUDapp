@@ -7,7 +7,7 @@ import java.util.List;
 
 public class GsonPostRepositoryImpl implements PostRepository {
     @Override
-    public Post getById(Integer integer) {
+    public Post getById(Integer id) {
         return null;
     }
 

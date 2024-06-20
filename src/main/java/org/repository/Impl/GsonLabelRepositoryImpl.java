@@ -7,7 +7,7 @@ import java.util.List;
 
 public class GsonLabelRepositoryImpl implements LabelRepository {
     @Override
-    public Label getById(Integer integer) {
+    public Label getById(Integer id) {
         return null;
     }
 

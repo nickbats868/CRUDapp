@@ -13,8 +13,7 @@ public class Post {
     private Date updated;
     private List<Label> labels;
 
-    //TODO:Пользователь в консоли должен иметь возможность
-    // создания, получения, редактирования и удаления данных.
+
 
 
     public Post(List<Label> labels) {

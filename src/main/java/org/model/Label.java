@@ -1,8 +1,10 @@
 package org.model;
 //label == метка
+
 public class Label {
     private String id;
     private String name;
+    private PostStatus status;
 
     public Label(String id, String name) {
         this.id = id;
