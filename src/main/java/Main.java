@@ -9,5 +9,4 @@ public class Main {
         WriterView writerView = new WriterView(writerController);
         writerView.showMenu();
     }
-
 }

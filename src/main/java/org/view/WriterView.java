@@ -39,7 +39,10 @@ public class WriterView {
             System.out.println("1.Create Writer");
             System.out.println("2.Get Writer by ID");
             System.out.println("3.Get all Writers");
+            //TODO:
             System.out.println("4.Update Writer");
+
+
             System.out.println("5.Delete Writer by ID");
             System.out.println("6.Exit");
 
@@ -97,16 +100,24 @@ public class WriterView {
                         writer.setFirstName(firstName);
                         writer.setLastName(lastName);
                         writerController.updateWriter(writer);
+                        System.out.println("Changed to: " + writer.getFirstName() + " " + writer.getLastName());
                     } else {
                         System.out.println("Writer not found!");
                     }
                     pause(scanner);
                     break;
                 case 5:
-                    System.out.println("Enter Writer ID:");
-                    id = scanner.nextInt();
-                    System.out.println("Writer with id: " + id + " deleted.");
-                    writerController.deleteWriterById(id);
+                    while (true) {
+                        id = getIntInput(scanner, "Enter Writer ID: ");
+                        try {
+                            writerController.deleteWriterById(id);
+                            System.out.println("Writer with ID: " + id + " - deleted.");
+                            break;
+                        }catch(IllegalArgumentException e){
+                            System.out.printf("Writer with ID " + id + " not found. Please enter a valid id.");
+                        pause(scanner);
+                        }
+                    }
                     pause(scanner);
                     break;
                 case 6:

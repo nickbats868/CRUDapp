@@ -66,7 +66,7 @@ public class GsonWriterRepositoryImpl implements WriterRepository {
                 return existingWriter;
             }
         }
-        throw new NoSuchElementException("Writer with ID" + id + "not found");
+        throw new NoSuchElementException("Writer with ID" + id + "not found. Please enter a valid id. ");
     }
 
     @Override
@@ -76,7 +76,8 @@ public class GsonWriterRepositoryImpl implements WriterRepository {
         }
         boolean removed = writers.removeIf(writer -> writer.getId().equals(id));
         if (!removed) {
-            throw new NoSuchElementException("Writer with ID " + id + " not found");
+            //TODO:
+            throw new NoSuchElementException("Writer with ID " + id + " not found. Please enter a valid id.");
         }
         saveWriters();
     }
