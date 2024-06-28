@@ -27,7 +27,8 @@ public class GsonLabelRepositoryImpl implements LabelRepository {
     }
 
     @Override
-    public void deleteById(Integer integer) {
+    public boolean deleteById(Integer integer) {
 
+        return false;
     }
 }

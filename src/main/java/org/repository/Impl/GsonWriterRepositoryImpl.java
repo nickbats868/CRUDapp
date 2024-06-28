@@ -33,7 +33,7 @@ public class GsonWriterRepositoryImpl implements WriterRepository {
         if (writer != null) {
             System.out.println("Found writer: " + writer.getFirstName() + " " + writer.getLastName());
         } else {
-            System.out.println("Writer with ID: " + id + "not found.");
+            System.out.println("Writer with ID: " + id + " not found.");
         }
         return writer;
     }
@@ -70,16 +70,16 @@ public class GsonWriterRepositoryImpl implements WriterRepository {
     }
 
     @Override
-    public void deleteById(Integer id) {
+    public boolean deleteById(Integer id) {
         if (id == null) {
             throw new IllegalArgumentException("ID cannot be null");
         }
         boolean removed = writers.removeIf(writer -> writer.getId().equals(id));
-        if (!removed) {
+        if (removed) {
             //TODO:
-            throw new NoSuchElementException("Writer with ID " + id + " not found. Please enter a valid id.");
+            saveWriters();
         }
-        saveWriters();
+        return removed;
     }
 
     private List<Writer> loadWriters() {
