@@ -145,7 +145,11 @@ public class WriterView {
                     break;
                 case 6:
                     System.exit(0);
+                default:
+                    System.out.println("There is no such function. Please select a number from the list. ");
+                    pause(scanner);
             }
+
         }
 
 
