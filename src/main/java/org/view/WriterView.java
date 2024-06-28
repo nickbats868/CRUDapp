@@ -20,6 +20,7 @@ public class WriterView {
             System.out.println(prompt);
             if (scanner.hasNextInt()) {
                 input = scanner.nextInt();
+                scanner.nextLine();
             } else {
                 System.out.println("Invalid input. Please enter a valid integer.");
                 scanner.next();
@@ -27,6 +28,29 @@ public class WriterView {
         }
         return input;
     }
+
+    private String getStringInput(Scanner scanner, String prompt) {
+        String input;
+        while (true) {
+            System.out.println(prompt);
+            input = scanner.nextLine().trim();
+            if (input.matches("[a-zA-Z]+")) {
+                input = capitalize(input);
+                break;
+            } else {
+                System.out.println("Invalid input. Enter letters only.");
+            }
+        }
+        return input;
+    }
+
+    private String capitalize(String input) {
+        if (input == null || input.isEmpty()) {
+            return input;
+        }
+        return input.substring(0, 1).toUpperCase() + input.substring(1).toLowerCase();
+    }
+
 
     private void pause(Scanner scanner) {
         System.out.println("Press Enter to continue...");
@@ -39,15 +63,15 @@ public class WriterView {
             System.out.println("1.Create Writer");
             System.out.println("2.Get Writer by ID");
             System.out.println("3.Get all Writers");
-            //TODO:
             System.out.println("4.Update Writer");
-
-
             System.out.println("5.Delete Writer by ID");
             System.out.println("6.Exit");
 
             int choice = getIntInput(scanner, "Enter your choice: ");
             int id;
+            String firstName;
+            String lastName;
+            Writer writer;
 
             switch (choice) {
                 case 1:
@@ -59,12 +83,9 @@ public class WriterView {
                             System.out.println("ID already exists. Please enter a unique ID.");
                         }
                     }
-                    scanner.nextLine();     // consume newline
-                    System.out.println("Enter First Name:");
-                    String firstName = scanner.nextLine();
-                    System.out.println("Enter Last Name:");
-                    String lastName = scanner.nextLine();
-                    Writer writer = new Writer();
+                    firstName = getStringInput(scanner,"Enter First Name:");
+                    lastName = getStringInput(scanner,"Enter Last Name:");
+                    writer = new Writer();
                     writer.setId(id);
                     writer.setFirstName(firstName);
                     writer.setLastName(lastName);
@@ -73,7 +94,6 @@ public class WriterView {
                     break;
                 case 2:
                     id = getIntInput(scanner, "Enter Writer ID");
-                    scanner.nextLine(); //consume newline (?? logic)
                     Writer foundWriter = writerController.getWriterById(id);
                     if (foundWriter != null) {
                         System.out.println(foundWriter.getFirstName() + " " + foundWriter.getLastName());
@@ -83,14 +103,15 @@ public class WriterView {
                     pause(scanner);
                     break;
                 case 3:
-                    scanner.nextLine();
                     System.out.println("All Writers:");
                     writerController.getAllWriters().forEach(System.out::println);
+                    if (writerController.getAllWriters().isEmpty()) {
+                        System.out.println("There is not a single writer on the list");
+                    }
                     pause(scanner);
                     break;
                 case 4:
                     id = getIntInput(scanner, "Enter Writer ID: ");
-                    scanner.nextLine();
                     System.out.println("Enter First Name:");
                     firstName = scanner.nextLine();
                     System.out.println("Enter Last Name:");
@@ -101,24 +122,26 @@ public class WriterView {
                         writer.setLastName(lastName);
                         writerController.updateWriter(writer);
                         System.out.println("Changed to: " + writer.getFirstName() + " " + writer.getLastName());
-                    } else {
-                        System.out.println("Writer not found!");
                     }
                     pause(scanner);
                     break;
                 case 5:
                     while (true) {
-                        id = getIntInput(scanner, "Enter Writer ID: ");
-                        try {
-                            writerController.deleteWriterById(id);
-                            System.out.println("Writer with ID: " + id + " - deleted.");
+                        System.out.println("Enter 0 to return to the main menu.");
+                        id = getIntInput(scanner, "Enter Writer ID to delete: ");
+                        if (id == 0) {
                             break;
-                        }catch(IllegalArgumentException e){
-                            System.out.printf("Writer with ID " + id + " not found. Please enter a valid id.");
-                        pause(scanner);
+                        }
+                        boolean deleted = writerController.writerRepository.deleteById(id);
+                        if (deleted) {
+                            System.out.println("Writer with ID: " + id + " was deleted.");
+                            pause(scanner);
+                            break;
+                        } else {
+                            System.out.println("Writer with ID: " + id + " not found. Enter a valid ID.");
+                            pause(scanner);
                         }
                     }
-                    pause(scanner);
                     break;
                 case 6:
                     System.exit(0);
