@@ -31,4 +31,9 @@ public class GsonLabelRepositoryImpl implements LabelRepository {
 
         return false;
     }
+
+    @Override
+    public boolean existsById(Integer integer) {
+        return false;
+    }
 }

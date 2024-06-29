@@ -96,7 +96,7 @@ public class WriterView {
                     id = getIntInput(scanner, "Enter Writer ID");
                     Writer foundWriter = writerController.getWriterById(id);
                     if (foundWriter != null) {
-                        System.out.println(foundWriter.getFirstName() + " " + foundWriter.getLastName());
+                        System.out.println("Found writer: " + foundWriter.getFirstName() + " " + foundWriter.getLastName());
                     } else {
                         System.out.println("Writer not found!");
                     }
@@ -112,12 +112,11 @@ public class WriterView {
                     break;
                 case 4:
                     id = getIntInput(scanner, "Enter Writer ID: ");
-                    System.out.println("Enter First Name:");
-                    firstName = scanner.nextLine();
-                    System.out.println("Enter Last Name:");
-                    lastName = scanner.nextLine();
+                    firstName = getStringInput(scanner,"Enter first name: " );
+                    lastName = getStringInput(scanner,"Enter last name: ");
                     writer = writerController.getWriterById(id);
                     if (writer != null) {
+                        System.out.println("Previous Writer: "+ writer.getFirstName()+" "+ writer.getLastName());
                         writer.setFirstName(firstName);
                         writer.setLastName(lastName);
                         writerController.updateWriter(writer);
@@ -126,15 +125,16 @@ public class WriterView {
                     pause(scanner);
                     break;
                 case 5:
+                    //TODO:
                     while (true) {
                         System.out.println("Enter 0 to return to the main menu.");
                         id = getIntInput(scanner, "Enter Writer ID to delete: ");
                         if (id == 0) {
                             break;
                         }
-                        boolean deleted = writerController.writerRepository.deleteById(id);
+                        boolean deleted = writerController.deleteWriterById(id);
                         if (deleted) {
-                            System.out.println("Writer with ID: " + id + " was deleted.");
+                            System.out.println("Writer with ID: " + id +" - " + " was deleted.");
                             pause(scanner);
                             break;
                         } else {

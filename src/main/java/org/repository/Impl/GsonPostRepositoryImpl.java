@@ -6,6 +6,9 @@ import org.repository.PostRepository;
 import java.util.List;
 
 public class GsonPostRepositoryImpl implements PostRepository {
+
+    private List<Post> posts;
+
     @Override
     public Post getById(Integer id) {
         return null;
@@ -30,5 +33,10 @@ public class GsonPostRepositoryImpl implements PostRepository {
     public boolean deleteById(Integer integer) {
 
         return false;
+    }
+
+    @Override
+    public boolean existsById(Integer id) {
+        return posts.stream().anyMatch(post -> post.getId().equals(id));
     }
 }

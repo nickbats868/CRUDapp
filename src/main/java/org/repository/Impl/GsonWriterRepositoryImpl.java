@@ -26,16 +26,10 @@ public class GsonWriterRepositoryImpl implements WriterRepository {
 
     @Override
     public Writer getById(Integer id) {
-        Writer writer = writers.stream()
+        return writers.stream()
                 .filter(w -> w.getId().equals(id))
                 .findFirst()
                 .orElse(null);
-        if (writer != null) {
-            System.out.println("Found writer: " + writer.getFirstName() + " " + writer.getLastName());
-        } else {
-            System.out.println("Writer with ID: " + id + " not found.");
-        }
-        return writer;
     }
 
     @Override
@@ -72,19 +66,36 @@ public class GsonWriterRepositoryImpl implements WriterRepository {
     @Override
     public boolean deleteById(Integer id) {
         if (id == null) {
-            throw new IllegalArgumentException("ID cannot be null");
+            System.out.println("ID cannot be null");
+            return false;
         }
-        boolean removed = writers.removeIf(writer -> writer.getId().equals(id));
-        if (removed) {
-            //TODO:
-            saveWriters();
+        if (existsById(id)) {
+            boolean removed = writers.removeIf(writer -> writer.getId().equals(id));
+            if (removed) {
+                try {
+                    saveWriters();
+                    System.out.println("Writer with id " + id + " was successfully removed and writers were saved.");
+                } catch (Exception e) {
+                    System.err.println("Failed to save writers after removing writer with ID " + id + ". Error: " + e.getMessage());
+                }
+            }
+            return removed;
+        } else {
+            System.out.println("No writer found with ID " + id + ".");
+            return false;
         }
-        return removed;
+    }
+
+
+    @Override
+    public boolean existsById(Integer id) {
+        return writers.stream().anyMatch(writer -> writer.getId().equals(id));
     }
 
     private List<Writer> loadWriters() {
         try (Reader reader = new FileReader(filePath)) {
-            Type listType = new TypeToken<ArrayList<Writer>>(){}.getType();
+            Type listType = new TypeToken<ArrayList<Writer>>() {
+            }.getType();
             List<Writer> writers = gson.fromJson(reader, listType);
             if (writers == null) {
                 writers = new ArrayList<>();

@@ -26,8 +26,7 @@ public class Writer implements Serializable {
                 '}';
     }
 
-    //возможность создания
-    //два конструктора - использована перегрузка методов (конструкторов)
+
     public Writer(String firstName, String lastName) {
         this.writerStatus = Status.ACTIVE;
         this.firstName = firstName;
@@ -40,7 +39,6 @@ public class Writer implements Serializable {
     }
 
 
-    //get - получение, set - назначение
     public Status getStatus() {
         return writerStatus;
     }
