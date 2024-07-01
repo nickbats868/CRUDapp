@@ -39,4 +39,5 @@ public class GsonPostRepositoryImpl implements PostRepository {
     public boolean existsById(Integer id) {
         return posts.stream().anyMatch(post -> post.getId().equals(id));
     }
+
 }

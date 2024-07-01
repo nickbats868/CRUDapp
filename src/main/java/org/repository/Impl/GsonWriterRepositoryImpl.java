@@ -107,11 +107,21 @@ public class GsonWriterRepositoryImpl implements WriterRepository {
         }
     }
 
-    private void saveWriters() {
+    public void saveWriters() {
         try (FileWriter fileWriter = new FileWriter(filePath)) {
             gson.toJson(writers, fileWriter);
         } catch (IOException e) {
             e.printStackTrace();
+        }
+    }
+
+    public boolean deleteAllWriters() {
+        if (!writers.isEmpty()) {
+            writers.clear();
+            saveWriters();
+            return true;
+        } else {
+            return false;
         }
     }
 

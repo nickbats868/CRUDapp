@@ -36,9 +36,17 @@ public class WriterController {
             return false;
         }
     }
+    public boolean deleteAllWriters(){
+        return writerRepository.deleteAllWriters();
+    }
 
     public boolean isUniqueID(int id) {
         List<Writer> writers = writerRepository.getAll();
-        return writers.stream().noneMatch(writer -> writer.getId() == id);
+        return writers.stream().noneMatch(w -> w.getId() == id);
     }
+
+    public void saveWriters(){
+        writerRepository.saveWriters();
+    }
+
 }
