@@ -7,5 +7,7 @@
     </appender>
 
     <!-- Уровень логирования и аппендер для root логгера -->
-
+    <root level="debug">
+        <appender-ref ref="STDOUT"/>
+    </root>
 </configuration>

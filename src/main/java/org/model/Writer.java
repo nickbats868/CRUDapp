@@ -3,10 +3,14 @@ package org.model;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.UUID;
+//TODO:
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 
 public class Writer implements Serializable {
+
+    private static final Logger logger = LoggerFactory.getLogger(Writer.class);
 
     private Integer id;
     private Status writerStatus;
@@ -32,10 +36,11 @@ public class Writer implements Serializable {
         this.firstName = firstName;
         this.lastName = lastName;
         this.posts = new ArrayList<Post>();
+        logger.info("Создан новый Writer: {} {}", firstName, lastName);
     }
 
     public Writer() {
-
+        logger.info("New empty Writer has been created");
     }
 
 
@@ -45,6 +50,7 @@ public class Writer implements Serializable {
 
     public void setStatus(Status status) {
         this.writerStatus = status;
+        logger.debug("Статус Writer изменён на: {} ", status);
     }
 
     public Integer getId() {
@@ -53,6 +59,7 @@ public class Writer implements Serializable {
 
     public void setId(Integer id) {
         this.id = id;
+        logger.debug("Установлен ID Writer: {}", id);
     }
 
     public String getFirstName() {
@@ -61,6 +68,7 @@ public class Writer implements Serializable {
 
     public void setFirstName(String firstName) {
         this.firstName = firstName;
+        logger.debug("Изменено имя Writer: {} ", firstName);
     }
 
     public String getLastName() {
@@ -69,6 +77,7 @@ public class Writer implements Serializable {
 
     public void setLastName(String lastName) {
         this.lastName = lastName;
+        logger.debug("Изменена фамилия Writer: {} ",lastName);
     }
 
     public List<Post> getPosts() {
@@ -78,6 +87,6 @@ public class Writer implements Serializable {
 
     private void setPosts(List<Post> posts) {
         this.posts = posts;
+        logger.debug("Изменены посты Writer");
     }
-
 }
