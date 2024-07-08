@@ -3,7 +3,6 @@ package org.model;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
-//TODO:
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -36,7 +35,7 @@ public class Writer implements Serializable {
         this.firstName = firstName;
         this.lastName = lastName;
         this.posts = new ArrayList<Post>();
-        logger.info("Создан новый Writer: {} {}", firstName, lastName);
+        logger.info("New Writer has been created4: {} {}", firstName, lastName);
     }
 
     public Writer() {
@@ -50,7 +49,7 @@ public class Writer implements Serializable {
 
     public void setStatus(Status status) {
         this.writerStatus = status;
-        logger.debug("Статус Writer изменён на: {} ", status);
+        logger.debug("Status of Writer has been changed to: {} ", status);
     }
 
     public Integer getId() {
@@ -59,7 +58,7 @@ public class Writer implements Serializable {
 
     public void setId(Integer id) {
         this.id = id;
-        logger.debug("Установлен ID Writer: {}", id);
+        logger.debug("Writer ID installed: {}", id);
     }
 
     public String getFirstName() {
@@ -68,7 +67,7 @@ public class Writer implements Serializable {
 
     public void setFirstName(String firstName) {
         this.firstName = firstName;
-        logger.debug("Изменено имя Writer: {} ", firstName);
+        logger.debug("Writer's name has been changed: {} ", firstName);
     }
 
     public String getLastName() {
@@ -77,7 +76,7 @@ public class Writer implements Serializable {
 
     public void setLastName(String lastName) {
         this.lastName = lastName;
-        logger.debug("Изменена фамилия Writer: {} ",lastName);
+        logger.debug("Writer's last name has been changed: {} ", lastName);
     }
 
     public List<Post> getPosts() {
@@ -87,6 +86,6 @@ public class Writer implements Serializable {
 
     private void setPosts(List<Post> posts) {
         this.posts = posts;
-        logger.debug("Изменены посты Writer");
+        logger.debug("Writer's posts have been changed: {}", posts);
     }
 }

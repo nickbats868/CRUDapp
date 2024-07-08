@@ -156,7 +156,7 @@ public class WriterView {
                     pause(scanner);
                     break;
                 case 7:
-                    System.exit(0);
+                    return;
                 default:
                     System.out.println("There is no such function. Please select a number from the list. ");
                     pause(scanner);

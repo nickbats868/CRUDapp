@@ -40,7 +40,6 @@ public class GsonWriterRepositoryImpl implements WriterRepository {
     @Override
     public Writer save(Writer writer) {
         writers.add(writer);
-        System.out.println("Saving Writer: " + writer.getFirstName() + " " + writer.getLastName());
         saveWriters();
         return writer;
     }
