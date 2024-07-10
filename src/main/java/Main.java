@@ -11,10 +11,14 @@ public class Main {
     public static void main (String[] args){
         logger.info("The application has been launched");
 
-        WriterController writerController = new WriterController(new GsonWriterRepositoryImpl());
-        WriterView writerView = new WriterView(writerController);
-        writerView.showMenu();
-
-        logger.info("The application has shut down");
+        try {
+            WriterController writerController = new WriterController(new GsonWriterRepositoryImpl());
+            WriterView writerView = new WriterView(writerController);
+            writerView.showMenu();
+        }catch(Exception e){
+            logger.error("An error occured while running the application: ", e);
+        }finally {
+            logger.info("The application has shut down");
+        }
     }
 }
